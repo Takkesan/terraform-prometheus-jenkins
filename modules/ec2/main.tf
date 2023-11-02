@@ -11,8 +11,8 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_key_pair" "key_pair" {
-  key_name   = var.server_key_pair_name
-  public_key = file("~/keys/id_rsa.pub")
+  key_name   = var.key_name
+  public_key = file(var.public_key_path)
 }
 
 
@@ -20,6 +20,6 @@ resource "aws_instance" "server" {
     ami           = data.aws_ami.amazon_linux.id
     instance_type = "t2.micro"
   
-  subnet_id = var.server_cidr_block
+  subnet_id = var.server_subnet_id
   key_name = aws_key_pair.key_pair.key_name
 }

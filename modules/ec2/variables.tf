@@ -1,10 +1,15 @@
-variable "server_cidr_block" {
+variable "server_subnet_id" {
   description = "Server of CIDR block"
   type        = string
 }
 
-variable "server_key_pair_name" {
-    description = "Server of key pair name"
+variable "public_key_path" {
+    description = "Path to public key"
     type        = string
-    default = "prometheus-jenkins-key-pair"
+}
+
+variable "key_name" {
+    description = "Name of key"
+    type        = string
+    default = "mykey"
 }

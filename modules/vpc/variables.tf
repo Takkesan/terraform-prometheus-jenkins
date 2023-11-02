@@ -8,8 +8,3 @@ variable "ec2_subnet_cidr_block" {
   type        = string
   default     = "10.0.0.0/24"
 }
-
-variable "allowed_ip_cidr_block" {
-  description = "CIDR block for allowed IP such as your home IP, office IP etc."
-  type        = string
-}
