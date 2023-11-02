@@ -6,6 +6,7 @@ variable "vpc_cidr_block" {
 variable "ec2_subnet_cidr_block" {
   description = "CIDR block for the subnet where EC2 instances will be placed"
   type        = string
+  default     = "10.0.0.0/24"
 }
 
 variable "allowed_ip_cidr_block" {
