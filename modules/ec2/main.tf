@@ -13,13 +13,25 @@ data "aws_ami" "amazon_linux" {
 resource "aws_key_pair" "key_pair" {
   key_name   = var.key_name
   public_key = file(var.public_key_path)
+
+  tags = {
+    Name    = "${var.project}-${var.environment}-key-pair"
+    Project = var.project
+    Env     = var.environment
+  }
 }
 
 
 resource "aws_instance" "server" {
-    ami           = data.aws_ami.amazon_linux.id
-    instance_type = "t2.micro"
-  
+  ami           = data.aws_ami.amazon_linux.id
+  instance_type = "t2.micro"
+
   subnet_id = var.server_subnet_id
-  key_name = aws_key_pair.key_pair.key_name
+  key_name  = aws_key_pair.key_pair.key_name
+
+  tags = {
+    Name    = "${var.project}-${var.environment}-server"
+    Project = var.project
+    Env     = var.environment
+  }
 }
