@@ -2,7 +2,7 @@ resource "aws_vpc" "vpc" {
   cidr_block = var.vpc_cidr_block
 
   tags = {
-    Name    = "${var.project}-${var.environment}-key-pair"
+    Name    = "${var.project}-${var.environment}-vpc"
     Project = var.project
     Env     = var.environment
   }
