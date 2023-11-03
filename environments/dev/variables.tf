@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "prometheus-jenkins-server"
+  default = "prometheus-jenkins"
 }
 
 variable "environment" {
