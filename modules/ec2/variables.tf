@@ -3,15 +3,14 @@ variable "server_subnet_id" {
   type        = string
 }
 
-variable "public_key_path" {
-  description = "Path to public key"
+variable "server_security_group_id" {
+  description = "Server security group id"
   type        = string
 }
 
-variable "key_name" {
-  description = "Name of key"
+variable "public_key_path" {
+  description = "Path to public key"
   type        = string
-  default     = "mykey"
 }
 
 variable "project" {

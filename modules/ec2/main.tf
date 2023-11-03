@@ -11,7 +11,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_key_pair" "key_pair" {
-  key_name   = var.key_name
+  key_name   = "${var.project}-${var.environment}-key-pair"
   public_key = file(var.public_key_path)
 
   tags = {
@@ -28,10 +28,14 @@ resource "aws_instance" "server" {
 
   subnet_id = var.server_subnet_id
   key_name  = aws_key_pair.key_pair.key_name
+  vpc_security_group_ids = [
+    var.server_security_group_id,
+  ]
 
   tags = {
     Name    = "${var.project}-${var.environment}-server"
     Project = var.project
     Env     = var.environment
+    Type    = "app"
   }
 }
