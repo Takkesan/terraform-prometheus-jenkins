@@ -1,3 +1,7 @@
-output "security_group_id" {
-  value = aws_security_group.server_sg.id
+output "jenkins_sg_id" {
+  value = aws_security_group.jenkins_sg.id
+}
+
+output "promtheus_sg_id" {
+  value = aws_security_group.prometheus_sg.id
 }

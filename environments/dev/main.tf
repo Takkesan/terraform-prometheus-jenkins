@@ -10,15 +10,13 @@ module "vpc" {
 module "security_group" {
   source = "../../modules/security_group"
 
-  //user_cidr_blocks = ["125.202.155.134/32"]
-  user_cidr_blocks = ["0.0.0.0/0"]
+  user_cidr_blocks = ["YOUR IP/32"]
   vpc_id           = module.vpc.vpc_id
 
   project     = var.project
   environment = var.environment
 }
 
-// --------------------- 引数でもたせる
 resource "aws_key_pair" "key_pair" {
   key_name   = "${var.project}-${var.environment}-key-pair"
   public_key = file("../../keys/prometheus-jenkins-dev-key-pair.pub")
@@ -33,7 +31,7 @@ resource "aws_key_pair" "key_pair" {
 module "jenkins-server" {
   source                   = "../../modules/ec2"
   server_subnet_id         = module.vpc.server_subnet_id
-  server_security_group_id = module.security_group.security_group_id
+  server_security_group_id = module.security_group.jenkins_sg_id
   key_name                 = aws_key_pair.key_pair.key_name
 
   user_data = <<EOF
@@ -71,9 +69,9 @@ sudo systemctl start jenkins
 module "prometheus-server" {
   source                   = "../../modules/ec2"
   server_subnet_id         = module.vpc.server_subnet_id
-  server_security_group_id = module.security_group.security_group_id
+  server_security_group_id = module.security_group.promtheus_sg_id
   key_name                 = aws_key_pair.key_pair.key_name
-  
+
   user_data = <<EOF
 #!/bin/bash
 
