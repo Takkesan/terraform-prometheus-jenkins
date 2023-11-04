@@ -8,8 +8,14 @@ variable "server_security_group_id" {
   type        = string
 }
 
-variable "public_key_path" {
-  description = "Path to public key"
+variable "user_data" {
+  description = "User data"
+  type        = string
+  default     = ""
+}
+
+variable "key_name" {
+  description = "Key name"
   type        = string
 }
 

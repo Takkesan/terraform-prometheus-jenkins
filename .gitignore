@@ -39,3 +39,5 @@ terraform.rc
 
 # End of https://www.toptal.com/developers/gitignore/api/terraform
 environments/dev/.terraform.lock.hcl
+keys/prometheus-jenkins-dev-key-pair.pub
+keys/prometheus-jenkins-dev-key-pair.pem
