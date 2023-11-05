@@ -35,6 +35,17 @@ resource "aws_security_group_rule" "jenkins_port_inbound_your_ip" {
   type              = "ingress"
 }
 
+resource "aws_security_group_rule" "ssh_port_jenkins_inbound_your_ip" {
+
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = var.user_cidr_blocks
+
+  security_group_id = aws_security_group.jenkins_sg.id
+  type              = "ingress"
+}
+
 
 // Prometheus SG
 resource "aws_security_group" "prometheus_sg" {
@@ -68,4 +79,37 @@ resource "aws_security_group_rule" "promehteus_port_inbound_your_ip" {
   cidr_blocks       = var.user_cidr_blocks
   type              = "ingress"
   security_group_id = aws_security_group.prometheus_sg.id
+}
+
+resource "aws_security_group_rule" "ssh_port_prometheus_inbound_your_ip" {
+
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = var.user_cidr_blocks
+
+  security_group_id = aws_security_group.prometheus_sg.id
+  type              = "ingress"
+}
+
+
+// Node Exporter
+resource "aws_security_group_rule" "node_exporter_port_inbound" {
+  type        = "ingress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  security_group_id = aws_security_group.prometheus_sg.id
+
+  source_security_group_id = aws_security_group.jenkins_sg.id
+}
+
+resource "aws_security_group_rule" "node_exporter_port_outbound" {
+  type        = "egress"
+  from_port   = 9100
+  to_port     = 9100
+  protocol    = "tcp"
+  security_group_id = aws_security_group.prometheus_sg.id
+
+  source_security_group_id = aws_security_group.jenkins_sg.id
 }
