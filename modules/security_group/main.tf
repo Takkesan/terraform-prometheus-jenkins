@@ -99,17 +99,7 @@ resource "aws_security_group_rule" "node_exporter_port_inbound" {
   from_port   = 9100
   to_port     = 9100
   protocol    = "tcp"
-  security_group_id = aws_security_group.prometheus_sg.id
+  security_group_id = aws_security_group.jenkins_sg.id
 
-  source_security_group_id = aws_security_group.jenkins_sg.id
-}
-
-resource "aws_security_group_rule" "node_exporter_port_outbound" {
-  type        = "egress"
-  from_port   = 9100
-  to_port     = 9100
-  protocol    = "tcp"
-  security_group_id = aws_security_group.prometheus_sg.id
-
-  source_security_group_id = aws_security_group.jenkins_sg.id
+  cidr_blocks = ["0.0.0.0/0"]
 }
