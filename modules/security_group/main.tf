@@ -95,10 +95,10 @@ resource "aws_security_group_rule" "ssh_port_prometheus_inbound_your_ip" {
 
 // Node Exporter
 resource "aws_security_group_rule" "node_exporter_port_inbound" {
-  type        = "ingress"
-  from_port   = 9100
-  to_port     = 9100
-  protocol    = "tcp"
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
   security_group_id = aws_security_group.jenkins_sg.id
 
   cidr_blocks = ["0.0.0.0/0"]
